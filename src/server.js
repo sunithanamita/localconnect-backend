@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
   await connectDB();
   const server = http.createServer(app);
   initSockets(server);
-  server.listen(PORT, () => console.log(`LocalConnect API running on port ${PORT}`));
+  server.listen(PORT, '0.0.0.0', () => console.log(`LocalConnect API running on port ${PORT}`));
 })().catch((err) => {
   console.error('Startup failed:', err.message);
   process.exit(1);
