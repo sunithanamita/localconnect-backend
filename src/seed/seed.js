@@ -11,7 +11,8 @@ const jitter = () => (Math.random() - 0.5) * 0.08; // roughly +-4 km
 const CATEGORIES = ['Electrician', 'Plumber', 'Tutor', 'Salon', 'Carpenter', 'AC Repair'];
 
 (async () => {
-  await mongoose.connect(process.env.MONGO_URI);
+  const uri = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGODB_URL;
+  await mongoose.connect(uri);
   await Promise.all([User.deleteMany({}), Category.deleteMany({}), ProviderProfile.deleteMany({})]);
 
   const hash = await bcrypt.hash('Test@12345', 10);

@@ -7,7 +7,8 @@ require('../src/models/Category');
 const Review = require('../src/models/Review');
 
 (async () => {
-  await mongoose.connect(process.env.MONGO_URI);
+  const uri = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGODB_URL;
+  await mongoose.connect(uri);
   const reviews = Object.fromEntries((await Review.find().lean()).map((r) => [String(r.booking), r.rating]));
   const rows = await Booking.find().populate('category', 'name').lean();
 
